@@ -5,7 +5,8 @@ from slackclient import SlackClient
 import json
 
 ### Specify slack API token
-slack_token = os.environ["SLACK_BOT_TOKEN"]
+slack_token = os.environ["SLACK_API_TEST_TOKEN"]
+# slack_token = os.environ["SLACK_BOT_TOKEN"]
 sc = SlackClient(slack_token)
 
 ### Specify url to btc markets
@@ -49,7 +50,9 @@ def slack_price(crypto, against, method, channel):
     # prepare the content of the message - as an attachment
     attachment = json.dumps([
         {
-            "fallback": "If unavailable, please follow this link - {0}".format(base_url),
+            "fallback": "{0}'s: {1} {2} If unavailable, please follow this link - {3}".format(instrument, last_price,
+                                                                                              currency,
+                                                                                              base_url),
             "text": message,
             "title_link": base_url,
             "color": "warning"
